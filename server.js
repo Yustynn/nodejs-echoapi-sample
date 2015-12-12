@@ -18,7 +18,7 @@ app.set('view engine', 'html');
 app.use(express.static(__dirname + '/public'));
 app.engine('html', require('ejs').renderFile);
 
-// Helper function to format the strings so that they don't include spaces and are all lowercase 
+// Helper function to format the strings so that they don't include spaces and are all lowercase
 var FormatString = function(string)
 {
   var lowercaseString = string.toLowerCase();
@@ -40,6 +40,8 @@ app.post('/api/echo', function(req, res){
   req.on('end', function(){
     var responseBody = {};
     console.log(requestBody);
+    // If no request (eg not echo requesting), end response
+    if(!requestBody) return res.end();
     console.log(JSON.stringify(requestBody));
 
     // parsing the requestBody for information
